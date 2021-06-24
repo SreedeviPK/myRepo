@@ -10,7 +10,7 @@ pipeline {
         stage('Build')
         {
             steps{echo 'Build'
-                //git 'https://github.com/SreedeviPK/myRepo.git'
+                git 'https://github.com/SreedeviPK/myRepo.git'
                 //sh "mvn clean install"
                 //bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
