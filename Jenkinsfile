@@ -2,12 +2,16 @@ pipeline{
     agent any
     stages{
         stage('SCM Checkout'){
-        git 'https://github.com/SreedeviPK/myRepo'
+            steps{    
+                 git 'https://github.com/SreedeviPK/myRepo'
+            }
     }  
     stage('Compile-Package'){
-      //Get maven home path
-      def mvnHome = tool name: 'MAVENHOME', type: 'maven'  
-      sh "${mvnHome}/bin/mvn package"
+        steps{
+         //Get maven home path
+         def mvnHome = tool name: 'MAVENHOME', type: 'maven'  
+         sh "${mvnHome}/bin/mvn package"
+        }
     }
    } 
 }
