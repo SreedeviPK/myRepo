@@ -1,5 +1,7 @@
-node{  
-    stage('SCM Checkout'){
+pipeline{  
+    agent any
+    stages{
+        stage('SCM Checkout'){
         git 'https://github.com/SreedeviPK/myRepo'
     }  
     stage('Compile-Package'){
@@ -7,5 +9,5 @@ node{
       def mvnHome = tool name: 'MAVENHOME', type: 'maven'  
       sh "${mvnHome}/bin/mvn package"
     }
- 
+   } 
 }
