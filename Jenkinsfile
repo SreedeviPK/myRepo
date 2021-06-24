@@ -9,8 +9,11 @@ pipeline {
     {
         stage('Build')
         {
-            steps{echo 'Build'
-               // git 'https://github.com/SreedeviPK/myRepo.git'
+            steps{
+              echo 'Build'
+              checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'f93bcc15-102e-45a6-9c99-665d209e10c0', url: 'https://github.com/SreedeviPK/myRepo.git']]])
+              sh "mvn -Dmaven.test.failure.ignore=true clean package"
+              // git 'https://github.com/SreedeviPK/myRepo.git'
                 //sh "mvn clean install"
                 //bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
@@ -22,7 +25,15 @@ pipeline {
             }*/
         } 
     }
-    
+  post{
+    always{
+      junit(
+        allowEmptyResults:true,
+        testResults: '*test-reports/.xml'
+      )
+    }
+  }
+}    
 
 
 /*pipeline{  
@@ -40,5 +51,5 @@ pipeline {
          sh "${mvnHome}/bin/mvn package"
         }
     }
-   } */
-}
+   } 
+}*/
